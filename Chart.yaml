@@ -1,0 +1,14 @@
+apiVersion: v2
+description: Deploys gluetun related resources to be used as a sidecar and/or proxy to allow traffic to flow through a VPN Service Provider (e.g. Private Internet Access).
+home: https://github.com/justingarfield/gluetun-chart
+name: gluetun
+appVersion: 2022.01.27
+version: 0.0.1
+sources:
+  - https://github.com/justingarfield/gluetun-chart
+  - https://hub.docker.com/r/qmcgaw/gluetun
+  - https://github.com/qdm12/gluetun
+icon: https://raw.githubusercontent.com/qdm12/gluetun/master/title.svg
+maintainers:
+  - name: Justin Garfield
+    email: helm-charts@jgarfield.com

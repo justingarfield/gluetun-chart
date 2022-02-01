@@ -1,0 +1,6 @@
+service:
+  type: "LoadBalancer"
+  loadBalancerIP: 127.0.0.240
+
+ingress:
+  enabled: true

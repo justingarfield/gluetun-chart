@@ -1,0 +1,3 @@
+{{ define "gluetun.dns" }}
+
+{{ end }}

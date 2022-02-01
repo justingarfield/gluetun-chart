@@ -1,0 +1,7 @@
+service:
+  managementUI:
+    nodePort: 30000
+  publicUI:
+    nodePort: 30080
+  ipfsPeering:
+    nodePort: 30001

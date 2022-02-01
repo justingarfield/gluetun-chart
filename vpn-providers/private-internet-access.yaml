@@ -1,0 +1,20 @@
+# -- Sets the VPN Service Provider to be Private Internet Access
+VPNSP: private internet access
+# -- Private Internet Access Username
+OPENVPN_USER: ""
+# -- Private Internet Access Password
+OPENVPN_PASSWORD: ""
+# -- Comma separated list of [regions](https://github.com/qdm12/gluetun/wiki/Private-internet-access#Servers)
+REGION: Netherlands
+# -- Comma separated list of [server names](https://github.com/qdm12/gluetun/wiki/Private-internet-access#Servers)
+SERVER_NAME: 
+# -- Comma separated list of [server hostnames](https://github.com/qdm12/gluetun/wiki/Private-internet-access#Servers)
+SERVER_HOSTNAME: 
+# -- Encryption preset, defaulting to `strong`, which can be set to `normal`, `strong` or `none`. `none` disables the cipher and auth OpenVPN options.
+PIA_ENCRYPTION: 
+# -- Custom OpenVPN server endpoint port
+VPN_ENDPOINT_PORT: 
+# -- defaults to `off` and can be set to `on` to enable port forwarding on the VPN server
+PORT_FORWARDING: 
+# -- File path to write the forwarded port number to. It defaults to `/tmp/gluetun/forwarded_port`.
+PORT_FORWARDING_STATUS_FILE: 

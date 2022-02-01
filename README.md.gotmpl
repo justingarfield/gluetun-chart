@@ -1,0 +1,34 @@
+{{ template "chart.header" . }}
+{{ template "chart.description" . }}
+
+{{ template "chart.versionBadge" .  }}{{ template "chart.typeBadge" .  }}{{ template "chart.appVersionBadge" .  }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+## Installation
+
+```shell
+helm repo add justingarfield https://justingarfield.github.io/emulatorjs-chart/
+helm repo update
+```
+## Uninstallation
+
+To uninstall/delete the `my-release` deployment (NOTE: `--purge` is default behaviour in Helm 3+ and will error):
+
+```shell
+helm delete --purge my-release
+```
+
+## Configuration
+
+The following table lists the configurable parameters of the emulatorjs chart and the default values.
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+## Credits
+
+This chart was heavily influenced by the pihole chart available @ https://github.com/MoJo2600/pihole-kubernetes/tree/master/charts/pihole. I really like how they've handled support for the multiple ways of handling networking and storage aspects of their template, and decided to follow suit. Thanks to that team for all the hard-work that helped breathe life into this one!

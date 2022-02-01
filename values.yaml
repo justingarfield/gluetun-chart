@@ -1,0 +1,158 @@
+# -- The number of replicas
+replicaCount: 1
+
+# -- The `spec.strategyTpye` for updates
+strategyType: RollingUpdate
+
+# -- The maximum number of Pods that can be created over the desired number of `ReplicaSet` during updating.
+maxSurge: 1
+
+# -- The maximum number of Pods that can be unavailable during updating
+maxUnavailable: 1
+
+image:
+  # -- the repostory to pull the image from
+  repository: qmcgaw/gluetun
+  # -- the docker tag, if left empty it will get it from the chart's appVersion
+  tag: latest
+  # -- the pull policy
+  pullPolicy: IfNotPresent
+
+# -- Specify a timezone to use to have correct log times
+tz: "Europe/London"
+
+# -- User ID to run as non root and for ownership of files written
+puid: 1000
+
+# -- Group ID to run as non root and for ownership of files written
+pgid: 1000
+
+# -- Period to check for public IP address. Set to 0 to disable.
+publicIpPeriod: "12h"
+
+# -- Filepath to store the public IP address assigned. This will be removed in the v4 program, instead you might want to use the HTTP control server
+publicIpFile: "/tmp/gluetun/ip"
+
+# -- Logs a message indicating if a newer version is available once the VPN is connected
+versionInformation: "on"
+
+# -- Period to update the VPN servers data in memory and to /gluetun/servers.json. Set to 0 to disable. This does a burst of DNS over TLS requests, which may be blocked if you set BLOCK_MALICIOUS=on for example.
+updaterPeriod: 0
+
+# -- List of providers to update servers data for, when the updater triggers periodically. If left empty, it defaults to the current VPN provider used at start.
+updaterVpnServiceProviders: 
+
+# https://github.com/qdm12/gluetun/wiki/OpenVPN-options
+openVpn:
+  # -- Network protocol to use, only valid for OpenVPN
+  protocol: "udp"
+  # -- Set the OpenVPN version to run
+  version: 2.5
+  # -- Openvpn verbosity level
+  verbosity: 1
+  # -- Space delimited openvpn flags to pass to openvpn
+  flags: 
+  # -- Run OpenVPN as root
+  root: "no"
+  # -- Specify a target VPN IP address to use
+  endpointIp: 
+  # -- Specify a custom cipher to use. It will also set ncp-disable if using AES GCM for PIA
+  cipher: 
+  # -- Specify a custom auth algorithm to use
+  auth: 
+  # -- Enable tunneling of IPv6 (only for Mullvad)
+  ipv6: "off"
+  # -- Set the MSS fix parameter. Set to 0 to use the defaults.
+  mssfix: 0
+  # -- Specify a custom network interface name to use
+  interface: "tun0"
+
+# https://github.com/qdm12/gluetun/wiki/Shadowsocks-options
+shadowSocks:
+  # -- Enable the internal Shadowsocks proxy
+  status: "off"
+  # -- Enable logging
+  log: "off"
+  # -- Internal listening address for Shadowsocks
+  address: ":8388"
+  # -- Password to use to connect to Shadowsocks
+  password: 
+  # -- AEAD Cipher to use for Shadowsocks
+  cipher: "chacha20-ietf-poly1305"
+
+# https://github.com/qdm12/gluetun/wiki/HTTP-proxy-options
+httpProxy:
+  # -- Enable the internal HTTP proxy
+  status: "off"
+  # -- Logs every tunnel requests
+  log: "off"
+  # -- Internal port number for the HTTP proxy to listen on
+  port: 8888
+  # -- Username to use to connect to the HTTP proxy
+  user: 
+  # -- Password to use to connect to the HTTP proxy
+  password: 
+  # -- Stealth mode means HTTP proxy headers are not added to your requests
+  stealth: "off"
+
+# https://github.com/qdm12/gluetun/wiki/Firewall-options
+firewall:
+  # -- Turn on or off the container built-in firewall. You should use it for debugging purposes only.
+  status: "on"
+  # -- Comma separated list of ports to allow from the VPN server side (useful for vyprvpn port forwarding)
+  vpnInputPorts: 
+  # -- Comma separated list of ports to allow through the default interface. This seems needed for Kubernetes sidecars.
+  inputPorts: 
+  # -- Prints every firewall related command. You should use it for debugging purposes only.
+  debug: "off"
+  # -- Comma separated subnets that Gluetun and the containers sharing its network stack are allowed to access. This involves firewall and routing modifications.
+  outboundSubnets: 
+
+# https://github.com/qdm12/gluetun/wiki/DNS-options
+dns:
+  # -- Activate DNS over TLS with Unbound
+  dot: "on" 
+  # -- Comma delimited list of DNS over TLS providers
+  dotProviders: "cloudflare" 
+  # -- Unbound caching
+  dotCaching: "on" 
+  # -- DNS IPv6 resolution
+  dotIPv6: "off" 
+  # -- Comma separated list of CIDRs or single IP addresses Unbound won't resolve to. Note that the default setting prevents DNS rebinding
+  dotPrivateAddress: 
+  # -- Unbound verbosity level
+  dotVerbosity: 1
+  # -- Unbound details verbosity level
+  dotVerbosityDetails: 0
+  # -- Unbound validation log level
+  dotValidationLogLevel: 0
+  # -- Period to update block lists and cryptographic files and restart Unbound. Set to 0 to deactivate updates
+  dnsUpdatePeriod: "24h"
+  # -- Block malicious hostnames and IPs with Unbound
+  blockMalicious: "on"
+  # -- Block surveillance hostnames and IPs with Unbound
+  blockSurveillance: "on"
+  # -- Block ads hostnames and IPs with Unbound
+  blockAds: "on"
+  # -- Comma separated list of domain names to leave unblocked with Unbound
+  unblock: 
+  # -- IP address to use as DNS resolver if DOT is off
+  dnsPlaintextAddress: "1.1.1.1"
+  # -- Keep the nameservers in /etc/resolv.conf untouched, but disabled DNS blocking features
+  dnsKeepNameServer: "off"
+
+# https://github.com/qdm12/gluetun/wiki/HTTP-control-server-options
+httpControlServer:
+  # -- Listening address for the HTTP control server
+  port: 8000
+  # -- Enable logging of HTTP requests
+  log: "on"
+
+# https://github.com/qdm12/gluetun/wiki/Health-options
+health:
+  # -- Hostname or IP address to ping on every internal health check
+  addressToPing: "github.com"
+  # -- Initial duration to wait for the VPN to be ready before restarting it
+  vpnDurationInitial: "6s"
+  # -- Additional duration to add to the wait time for each consecutive failure of the VPN
+  vpnDurationAddition: "5s"
